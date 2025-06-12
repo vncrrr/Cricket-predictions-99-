@@ -1,0 +1,63 @@
+ from data_scraper import get_lineup
+from team_generator import generate_fantasy_team
+
+url = "https://advancecricket.com/match/mk-w-vs-hd-w-match-1-bengal-womens-league-2025/82326066"
+players = get_lineup(url)
+
+print("📦 Lineups Fetched:")
+print(players)
+
+fantasy_team = generate_fantasy_team(players)
+
+print("\n🔮 Predicted Fantasy XI:")
+for p in fantasy_team["team"]:
+    mark = ""
+    if p == fantasy_team["captain"]:
+        mark = " (C)"
+    elif p == fantasy_team["vice_captain"]:
+        mark = " (VC)"
+    print(f" - {p}{mark}")
+   from updatedatascraper import get_lineup
+from team_generator import generate_fantasy_team
+
+url = "https://advancecricket.com/match/mk-w-vs-hd-w-match-1-bengal-womens-league-2025/82326066"
+players = get_lineup(url)
+
+print("📦 Lineups Fetched:")
+print(players)
+
+fantasy_team = generate_fantasy_team(players)
+
+print("\n🔮 Predicted Fantasy XI (with roles & credits):")
+for p in fantasy_team["team"]:
+    mark = ""
+    if fantasy_team["captain"] in p:
+        mark = " [C]"
+    elif fantasy_team["vice_captain"] in p:
+        mark = " [VC]"
+    print(f" - {p}{mark}")
+
+print(f"\n💰 Total Credit Used: {fantasy_team['total_credit']}/100")
+print(f"🟢 Player Split: {fantasy_team['split']}") 
+from updatedatascraper import get_lineup
+from team_generator import generate_multiple_teams, export_teams_to_csv
+
+url = "https://advancecricket.com/match/mk-w-vs-hd-w-match-1-bengal-womens-league-2025/82326066"
+players = get_lineup(url)
+
+fantasy_teams = generate_multiple_teams(players, num_teams=20)
+
+# Show all teams in console
+for i, team in enumerate(fantasy_teams):
+    print(f"\n🔮 TEAM {i+1}:")
+    for p in team["team"]:
+        mark = ""
+        if team["captain"] in p:
+            mark = " [C]"
+        elif team["vice_captain"] in p:
+            mark = " [VC]"
+        print(f" - {p}{mark}")
+    print(f"💰 Total Credit: {team['total_credit']}/100 | Split: {team['split']}")
+
+# Export all teams to CSV
+export_teams_to_csv(fantasy_teams)
